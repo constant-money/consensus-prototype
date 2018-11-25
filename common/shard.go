@@ -6,16 +6,16 @@ type Shard struct {
 	leader     Address
 	committees []Address
 	candidates []Address
-	network    Network // keep it simple, for communication
+	network    Network // KISS
 }
 
-type CrossShardMsg struct {
-	prevCrossShardBlock Hash
-	utxo                MerkleTree
-	signatures          []Signature
+type InterMessage struct {
+	prevInterBlock Hash
+	utxo           MerkleTree
+	sigs           []Signature
 }
 
-type SameShardMsg struct {
+type IntraMessage struct {
 }
 
 func shardOf(a Address) uint {

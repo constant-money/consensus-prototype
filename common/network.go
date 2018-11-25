@@ -2,10 +2,10 @@ package common
 
 type Network struct {
 	shards  []Shard
-	workers map[Address]Worker
+	workers map[Address]Committee
 }
 
-func (n Network) crossShard(to uint, msg CrossShardMsg) {
+func (n Network) send(to uint, msg InterMessage) {
 	// keep it simple, just send to the shard leader
-	n.workers[n.shards[to].leader].crossShardChan <- msg
+	n.workers[n.shards[to].leader].interShard <- msg
 }

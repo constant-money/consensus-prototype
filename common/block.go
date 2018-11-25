@@ -1,17 +1,18 @@
 package common
 
 type Block struct {
-	blockHash            Hash
-	prevSameShardBlock   Hash
-	prevCrossShardBlocks []Hash
-	transactions         []Transaction
-	signatures           []Signature
-	randao               uint64
+	hash            Hash
+	prevIntraBlock  Hash
+	prevInterBlocks []Hash
+	txs             []Transaction
+	sigs            []Signature
+	randao          uint64
 }
 
-func (b Block) groupByReceiver() (utxos map[uint]MerkleTree) {
-	for _, tx := range b.transactions {
-		shard := shardOf(tx.receiver)
+// group utxos by receivers
+func (b Block) groupByReceivers() (utxos map[uint]MerkleTree) {
+	for _, tx := range b.txs {
+		shard := shardOf(tx.to)
 		for serial, value := range tx.vout {
 			utxos[shard][serial] = value
 		}

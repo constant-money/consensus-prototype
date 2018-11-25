@@ -1,22 +1,20 @@
 package common
 
 type Shard struct {
-	chain      []Block
-	utxo       *MerkleTree
-	leader     Address
-	committees []Address
-	candidates []Address
+	id    int
+	chain []Block
+	utxo  MerkleTree
 }
 
-type InterMessage struct {
-	prevInterBlock Hash
-	utxo           MerkleTree
-	sigs           []Signature
+type ExternalMessage struct {
+	prevExternalBlock Hash
+	utxo              MerkleTree
+	sigs              []Signature
 }
 
-type IntraMessage struct {
+type InternalMessage struct {
 }
 
-func shardOf(a Address) uint {
-	return uint(a) % NUMBER_OF_SHARDS
+func shardOf(a Address) int {
+	return int(a) % NUMBER_OF_SHARDS
 }

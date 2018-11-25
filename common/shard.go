@@ -6,7 +6,6 @@ type Shard struct {
 	leader     Address
 	committees []Address
 	candidates []Address
-	network    Network // KISS
 }
 
 type InterMessage struct {

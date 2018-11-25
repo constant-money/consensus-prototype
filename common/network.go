@@ -1,11 +1,11 @@
 package common
 
 type Network struct {
-	shards  []Shard
-	workers map[Address]Committee
+	shards     []Shard
+	committees map[Address]Committee
 }
 
 func (n Network) send(to uint, msg InterMessage) {
-	// keep it simple, just send to the shard leader
-	n.workers[n.shards[to].leader].interShard <- msg
+	// KISS, to be replaced with libp2p
+	n.committees[n.shards[to].leader].interShard <- msg
 }

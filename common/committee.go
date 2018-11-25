@@ -14,8 +14,8 @@ type Communications struct {
 
 type Committee struct {
 	Communications
-	shard   Shard // node's local copy of the shard
-	network Network
+	shard   Shard   // node's local copy of the shard
+	network Network // KISS
 }
 
 func (c *Committee) start() {
@@ -63,7 +63,7 @@ func (c *Committee) newBlock() {
 
 		// update inter-shard nodes so they receive their new utxos
 		for to, utxo := range b.groupByReceivers() {
-			c.shard.network.send(to, InterMessage{b.hash, utxo, nil}) // KISS
+			c.network.send(to, InterMessage{b.hash, utxo, nil}) // KISS
 		}
 
 		// update local UTXO state

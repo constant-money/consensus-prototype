@@ -59,13 +59,13 @@ func (p *Producer) newBlock() {
 			p.p2p.send(p.shard.otherCommittees[shardId].Leader, Transaction{})
 		}
 
-		// (state) reconstruct local UTXO state
+		// (state) reconstruct local UTXO state w/ txType 0, 4
 		// TODO
 
-		// (state) reconstruct local committee state
+		// (state) reconstruct local committee state w/ txType 1, 2, 3
 		// TODO
 
-		// (state) reconstruct global committee state (directory)
+		// (state) reconstruct global committee state w/ with txType 4
 		// TODO
 
 	}

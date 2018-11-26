@@ -19,17 +19,12 @@ type Transaction struct {
 
 // only needed when txType is 4
 type CrossShardData struct {
-	UTXOData
-	CommitteeData
-	sigs []Signature
-}
 
-type UTXOData struct {
-	utxo              MerkleTree
+	// the cross-shard data
+	utxo      MerkleTree
+	committee Committee
+
+	// for validation
 	prevExternalBlock Hash
-}
-
-type CommitteeData struct {
-	leader    Address
-	producers []Address
+	sigs              []Signature
 }

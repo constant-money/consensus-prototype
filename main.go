@@ -7,7 +7,7 @@ func main() {
 	for i := 0; i < constant.NUMBER_OF_SHARDS; i++ {
 		for j := 0; j < constant.NUMBER_OF_PRODUCERS; j++ {
 			p := constant.NewProducer(i)
-			p.Start()
+			go p.Start()
 		}
 	}
 }

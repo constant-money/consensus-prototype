@@ -1,12 +1,29 @@
 package constant
 
 type Block struct {
-	hash               Hash
-	txs                []Transaction
-	sigs               []Signature
-	randao             uint64
-	prevInternalBlock  Hash   // sames-shard
-	prevExternalBlocks []Hash // cross-shard
+
+	// standard stuff
+	hash              Hash
+	prevInternalBlock Hash
+	txs               []Transaction
+	sigs              []Signature
+
+	// for random number generation
+	randao uint64
+
+	// cross-shard references
+	prevExternalBlocks []Hash
+
+	// cross-shard data proofs map[shard_id]proof
+	xsProofs map[int]CrossShardProof
+}
+
+type CrossShardProof struct {
+	// uxto to be sent to another shard
+	utxo MerkleTree // TODO: maybe just the root hash?
+
+	// signatures from the committee approving the data package
+	sigs []Signature
 }
 
 // group utxos by receivers

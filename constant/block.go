@@ -1,12 +1,12 @@
-package common
+package constant
 
 type Block struct {
 	hash               Hash
-	prevInternalBlock  Hash
-	prevExternalBlocks []Hash
 	txs                []Transaction
 	sigs               []Signature
 	randao             uint64
+	prevInternalBlock  Hash   // sames-shard
+	prevExternalBlocks []Hash // cross-shard
 }
 
 // group utxos by receivers

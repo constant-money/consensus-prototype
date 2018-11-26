@@ -1,4 +1,4 @@
-package common
+package constant
 
 const (
 	NUMBER_OF_SHARDS    = 256

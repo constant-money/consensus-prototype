@@ -20,8 +20,13 @@ type Transaction struct {
 // only needed when txType is 4
 type CrossShardData struct {
 
-	// the cross-shard data
-	utxo      MerkleTree
+	// utxo cross-shard data
+	utxo MerkleTree
+
+	// committee cross-shard data
+	committee Committee
+
+	// account-state cross-shard data
 	committee Committee
 
 	// for validation

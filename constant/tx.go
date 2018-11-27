@@ -27,7 +27,8 @@ type CrossShardData struct {
 	committee Committee
 
 	// account-state cross-shard data
-	committee Committee
+	// map[account]([variable]value)
+	state map[Address](map[string]interface{})
 
 	// for validation
 	prevExternalBlock Hash

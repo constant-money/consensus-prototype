@@ -1,11 +1,24 @@
 package constant
 
 type Shard struct {
-	id              int
-	chain           []Block           // local block state
-	utxo            MerkleTree        // local utxo state
-	committee       Committee         // local committee state
-	otherCommittees map[int]Committee // local view of the world
+
+	// the shard id
+	id int
+
+	// the blockchain data
+	chain []Block
+
+	// the utxo state
+	utxo MerkleTree
+
+	// the account state
+	account map[Address]Account
+
+	// the committee state (of this shard)
+	committee Committee
+
+	// the other committees' state (from this shard's perspective)
+	otherCommittees map[int]Committee
 }
 
 func shardOf(a Address) int {

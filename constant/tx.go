@@ -20,13 +20,13 @@ type Transaction struct {
 // only needed when txType is 4
 type CrossShardData struct {
 
-	// utxo cross-shard data
+	// new utxo for target shard
 	utxo MerkleTree
 
-	// committee cross-shard data
+	// info on committee of source shard
 	committee Committee
 
-	// account-state cross-shard data
+	// new account state for target shard
 	// map[account]([variable]value)
 	state map[Address](map[string]interface{})
 

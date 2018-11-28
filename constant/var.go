@@ -6,8 +6,8 @@ type Contract struct {
 	owner Address
 }
 
-// state_set = map[element_key]element_value
+// micro_state = map[element_key]element_value
 type MicroState map[string]interface{}
 
-// state = map[state_key](state_set)
+// macro_state = map[micro_state_key]micro_state
 type MacroState map[string]MicroState

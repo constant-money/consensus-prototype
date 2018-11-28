@@ -1,11 +1,8 @@
 package constant
 
 type Transaction struct {
-	from  Address
-	to    Address
-	value float64
-	vin   map[Serial]float64
-	vout  map[Serial]float64
+	vin  map[Serial]UTXO
+	vout map[Serial]UTXO
 
 	// 0: normal tx
 	// 1: add a producer
@@ -14,7 +11,8 @@ type Transaction struct {
 	// 4: new cross-shard update from another shard
 	txType int
 
-	data interface{}
+	pin  map[string]interface{}
+	pout map[string]interface{}
 }
 
 // only needed when txType is 4

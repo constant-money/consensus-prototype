@@ -11,8 +11,8 @@ type Shard struct {
 	// the utxo state
 	utxo MerkleTree
 
-	// the account state
-	account map[Address]Account
+	// the param state
+	param MerkleTree
 
 	// the committee state (of this shard)
 	committee Committee

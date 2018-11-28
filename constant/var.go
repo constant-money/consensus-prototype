@@ -7,7 +7,7 @@ type Contract struct {
 }
 
 // state_set = map[element_key]element_value
-type StateSet map[string]interface{}
+type MicroState map[string]interface{}
 
 // state = map[state_key](state_set)
-type State map[string]StateSet
+type MacroState map[string]MicroState

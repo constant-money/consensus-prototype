@@ -6,6 +6,12 @@ const (
 	CHANNEL_SIZE        = 10
 )
 
+const (
+	TX_TRANSER = iota
+	TX_UPDATE_DATA
+	TX_ADD_RULE
+)
+
 type Address int
 type Serial int
 type Hash int

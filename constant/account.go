@@ -23,41 +23,59 @@ type Account struct {
 	owners map[string]bool
 	quorum int
 
-	// triggers
-	triggers map[string](map[string]([]Trigger))
+	// rules
+	rules map[string]([]Rule)
 
 	// creator
 	creator Address
 }
 
-func (a *Account) updateData(key string, value string, sigs []string) {
-	if a.allowed(sigs) {
-		a.data[key] = value
-		a.reviewTriggers(key, value)
-	}
-}
-
-func (a *Account) reviewTriggers(key string, value string) {
-	for _, t := range a.triggers[key][value] {
-		var txData map[string]string
-		for _, k := range t.keys {
-			txData[k] = a.data[k]
-		}
-		a.newTx(t.to, t.amt, txData)
-	}
-}
-
-func (a *Account) addTrigger(
-	key string,
-	value string,
+func (a *Account) processTx(
+	from Address,
 	to Address,
-	amt float64,
-	keys []string,
+	value float64,
+	txType int,
+	txData interface{},
 	sigs []string) {
 
 	if a.allowed(sigs) {
-		a.triggers[key][value] = append(a.triggers[key][value],
-			Trigger{to, amt, keys})
+
+		switch txType {
+
+		case TX_TRANSER:
+			// add and remove utxos
+
+		case TX_UPDATE_DATA:
+			a.updateData(txData.(map[string]string))
+
+		case TX_ADD_RULE:
+			a.addRule(txData.(Rule))
+
+		}
+	}
+
+}
+
+func (a *Account) updateData(newData map[string]string) {
+	for k, v := range newData {
+		a.data[k] = v
+		a.reviewRules(k, v)
+	}
+}
+
+func (a *Account) addRule(t Rule) {
+	a.rules[t.key] = append(a.rules[t.key], t)
+}
+
+func (a *Account) reviewRules(key string, value string) {
+	for _, r := range a.rules[key] {
+		if value == a.data[r.valueKey] {
+			var txData map[string]string
+			for _, k := range r.txDataKeys {
+				txData[k] = a.data[k]
+			}
+			a.stageNewTx(r.to, r.amount, txData)
+		}
 	}
 }
 
@@ -77,6 +95,6 @@ func (a *Account) allowed(sigs []string) bool {
 	return false
 }
 
-func (a *Account) newTx(to Address, amt float64, txData map[string]string) {
+func (a *Account) stageNewTx(to Address, amt float64, txData map[string]string) {
 
 }
